@@ -98,12 +98,32 @@
 }
 
 .row {
+	position: relative;
+
 	display: flex;
+}
+
+.row--error .row__input {
+	border-color: red;
+}
+
+.row--error::after {
+	position: absolute;
+	top: -7px;
+	left: 15px;
+
+	background-color: #fff;
+
+	color: red;
+	font-size: 12px;
+
+	content: 'This field can not be empty';
 }
 
 .row__input {
 	width: 100%;
 	padding: 5px;
+	border: 1px solid #000;
 }
 
 .row__button {
