@@ -79,12 +79,14 @@ window.addEventListener('DOMContentLoaded', () => {
 				}
 			});
 
-			userText.remove();
 			target.previousElementSibling.children[1].innerText = userText.value;
 			target.previousElementSibling.children[1].style.display = 'block';
+			userText.remove();
 
-			target.classList.remove('list__apply-btn');
-			target.nextElementSibling.classList.remove('list__cancel-btn');
+			document.querySelector('.list__apply-btn').classList.remove('list__apply-btn');
+			document.querySelector('.list__cancel-btn').classList.remove('list__cancel-btn');
+
+			checkEmptyItems();
 		} else if (target.classList.contains('list__set-btn')) { // Edit goal
 			editButtons.forEach((editBtn, i) => {
 				if (target == editBtn) {
@@ -134,6 +136,20 @@ window.addEventListener('DOMContentLoaded', () => {
 		});
 	};
 
+	// Delete empty items
+
+	function checkEmptyItems() {
+		const goals = goalsArray.map(item => item.text),
+					listItems = document.querySelectorAll('.list__item');
+		
+		goals.forEach((goal, i) => {
+			if (goal === '') {
+				goalsArray.splice(i, 1);
+				listItems[i].remove();
+			}
+		});
+	};
+	
 	getGoals();
 
 });
