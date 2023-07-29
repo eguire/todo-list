@@ -49,6 +49,7 @@ window.addEventListener('DOMContentLoaded', () => {
 					deleteButtons = document.querySelectorAll('.list__delete-btn');
 
 		// Check and edit checkboxes
+
 		if (target.classList.contains('list__checkbox')) {
 			checkboxes.forEach((checkbox, index) => {
 				if (target == checkbox && target.checked === true) {
@@ -59,8 +60,9 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 		};
 
-		// Cancel editing on click out of target
-		if (userText && !target.classList.contains('list__textarea') && !target.classList.contains('list__apply-btn') && !target.classList.contains('list__cancel-btn')) {
+		// Editing and deliting
+
+		if (target.classList.contains('list__delete-btn') && target.classList.contains('list__cancel-btn') || userText && !target.classList.contains('list__textarea') && !target.classList.contains('list__apply-btn')) { // Canceling
 			userText.remove();
 
 			spans.forEach(span => {
@@ -69,24 +71,20 @@ window.addEventListener('DOMContentLoaded', () => {
 
 			document.querySelector('.list__apply-btn').classList.remove('list__apply-btn');
 			document.querySelector('.list__cancel-btn').classList.remove('list__cancel-btn');
-		};
 
-		// Editing
-		if (target.classList.contains('list__apply-btn')) { // Apply changes
-			goalsArray.forEach((item, i) => {
-				if (item.text == target.previousElementSibling.children[1].innerText) {
+		} else if (target.classList.contains('list__set-btn') && target.classList.contains('list__apply-btn')) { // Applying
+			editButtons.forEach((button, i) => {
+				if (target == button) {
 					goalsArray[i].text = userText.value;
+
+					userText.remove();
+					spans[i].innerText = goalsArray[i].text;
+					spans[i].style.display = 'block';
+
+					document.querySelector('.list__apply-btn').classList.remove('list__apply-btn');
+					document.querySelector('.list__cancel-btn').classList.remove('list__cancel-btn');
 				}
 			});
-
-			target.previousElementSibling.children[1].innerText = userText.value;
-			target.previousElementSibling.children[1].style.display = 'block';
-			userText.remove();
-
-			document.querySelector('.list__apply-btn').classList.remove('list__apply-btn');
-			document.querySelector('.list__cancel-btn').classList.remove('list__cancel-btn');
-
-			checkEmptyItems();
 		} else if (target.classList.contains('list__set-btn')) { // Edit goal
 			editButtons.forEach((editBtn, i) => {
 				if (target == editBtn) {
@@ -101,13 +99,6 @@ window.addEventListener('DOMContentLoaded', () => {
 					deleteButtons[i].classList.add('list__cancel-btn');
 				}
 			});
-		} else if (target.classList.contains('list__cancel-btn')) { // Cancel changes
-
-			userText.remove();
-
-			target.classList.remove('list__cancel-btn');
-			target.previousElementSibling.classList.remove('list__apply-btn');
-			target.parentElement.firstChild.children[1].style.display = 'block';
 		} else if (target.classList.contains('list__delete-btn')) { // Delete goal
 			deleteButtons.forEach((deleteBtn, i) => {
 				if (target == deleteBtn) {
@@ -117,8 +108,12 @@ window.addEventListener('DOMContentLoaded', () => {
 			});
 		};
 
+		checkEmptyItems(); // Delete empty items
 		setLocalStrg(); // Save all changes in local storage
 	});
+
+
+
 
 	// Setting in LocalStorage
 
@@ -140,8 +135,8 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	function checkEmptyItems() {
 		const goals = goalsArray.map(item => item.text),
-					listItems = document.querySelectorAll('.list__item');
-		
+			listItems = document.querySelectorAll('.list__item');
+
 		goals.forEach((goal, i) => {
 			if (goal === '') {
 				goalsArray.splice(i, 1);
@@ -149,7 +144,7 @@ window.addEventListener('DOMContentLoaded', () => {
 			}
 		});
 	};
-	
+
 	getGoals();
 
 });
