@@ -92,6 +92,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 					textarea.classList.add('list__textarea');
 					labels[i].append(textarea);
+					textarea.focus();
 					textarea.innerText = goalsArray[i].text;
 					spans[i].style.display = 'none';
 
