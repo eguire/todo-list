@@ -136,7 +136,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
 	function checkEmptyItems() {
 		const goals = goalsArray.map(item => item.text),
-			listItems = document.querySelectorAll('.list__item');
+					listItems = document.querySelectorAll('.list__item');
 
 		goals.forEach((goal, i) => {
 			if (goal === '') {
