@@ -44,7 +44,6 @@ body {
 
 .list__item {
 	display: flex;
-	justify-content: space-between;
 	align-items: center;
 	padding: 5px;
 
@@ -116,8 +115,6 @@ body {
 }
 
 .list__set-btn {
-	margin-left: auto;
-
 	background-image: url('../images/pencil.svg');
 }
 
