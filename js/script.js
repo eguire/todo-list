@@ -26,6 +26,16 @@ window.addEventListener('DOMContentLoaded', () => {
 		setLocalStrg();
 	};
 
+	inputsParent.addEventListener('keyup', (e) => {
+		if (e.key === 'Enter' && goalsInput.value) {
+			createGoal(goalsInput.value);
+			inputsParent.classList.remove('row--error');
+			goalsInput.value = '';
+		} else if (e.key === 'Enter' && goalsInput.value === '') {
+			inputsParent.classList.add('row--error');
+		}
+	});
+
 	goalsButton.addEventListener('click', () => {
 		if (goalsInput.value) {
 			createGoal(goalsInput.value);

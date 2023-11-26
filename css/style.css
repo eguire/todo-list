@@ -13,6 +13,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	margin: 0;
+	padding: 15px;
 
 	background: rgb(131,58,180);
 	background: linear-gradient(143deg, #a9f1df 0%, #ffbbbb 100%);
@@ -50,6 +52,7 @@ body {
 	background-color: rgba(255, 255, 255, 0.7);
 	border-radius: 5px;
 	
+	animation: new-item 0.3s;
 	transition: box-shadow 0.3s;
 }
 
@@ -183,4 +186,16 @@ body {
 	cursor: pointer;
 
 	transition: border-color 0.3s;
+}
+
+@keyframes new-item {
+	from {
+		margin-top: -56px;
+		opacity: 0;
+	}
+
+	to {
+		margin-top: 0;
+		opacity: 1;
+	}
 }
